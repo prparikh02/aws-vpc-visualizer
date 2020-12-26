@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
+import { App } from '@aws-cdk/core';
 import { AwsVpcVisualizerStack } from '../lib/cdk-stack';
 
-const app = new cdk.App();
+const app = new App();
 
 const projectName = 'AwsVpcVisualizerStack'
 
@@ -49,6 +49,7 @@ Object.entries(config).forEach(([stage, configVals]) => {
     configVals['stackId'],
     configVals['isDev'],
     configVals['disambiguator'],
+    stage,
     {
       env: {
         region: configVals['region'],
@@ -56,3 +57,6 @@ Object.entries(config).forEach(([stage, configVals]) => {
     },
   );
 });
+
+// Synthesize stacks
+app.synth()

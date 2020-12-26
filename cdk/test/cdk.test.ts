@@ -5,7 +5,13 @@ import * as Cdk from '../lib/cdk-stack';
 test('Empty Stack', () => {
     const app = new cdk.App();
     // WHEN
-    const stack = new Cdk.AwsVpcVisualizerStack(app, 'MyTestStack');
+    const stack = new Cdk.AwsVpcVisualizerStack(
+      app,
+      'MyTestStack',
+      true,
+      'Beta',
+      'stage',
+    );
     // THEN
     expectCDK(stack).to(matchTemplate({
       "Resources": {}
