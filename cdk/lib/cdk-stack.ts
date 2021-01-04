@@ -1,4 +1,4 @@
-import { Construct, Duration, Stack, StackProps, } from '@aws-cdk/core';
+import { Construct, Duration, Stack, StackProps, Tags } from '@aws-cdk/core';
 import {
   Cors,
   LambdaIntegration,
@@ -21,7 +21,14 @@ import {
   ViewerProtocolPolicy
 } from '@aws-cdk/aws-cloudfront';
 import { HttpOrigin, S3Origin } from '@aws-cdk/aws-cloudfront-origins';
-import { AnyPrincipal, Effect, PolicyStatement, Role }  from '@aws-cdk/aws-iam';
+import {
+  AnyPrincipal,
+  Effect,
+  Policy,
+  PolicyStatement,
+  Role,
+  User
+}  from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime }  from '@aws-cdk/aws-lambda';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
@@ -36,6 +43,10 @@ export class AwsVpcVisualizerStack extends Stack {
       props?: StackProps,
   ) {
     super(scope, id, props);
+
+    // Tag all constructs with the project for easy billing drilldown, 
+    // filtering, and organization.
+    Tags.of(this).add('project', id)
 
     // To normalize construct names/ids
     const toCanonical = (rootId: string) => {
@@ -65,6 +76,31 @@ export class AwsVpcVisualizerStack extends Stack {
         resources: ['*'],
       }),
     );
+    describeVpcResourcesRole.assumeRolePolicy
+
+    // Create developer IAM users for local development
+    if (dev) {
+      const developmentUser = new User(this, toCanonical('DevelopmentUser'));
+      const developmentPolicy = new Policy(this, toCanonical('DevelopmentPolicy'), {
+        statements: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ['sts:AssumeRole'],
+            resources: [apiBackendFn.role!.roleArn],
+          }),
+        ]
+      });
+      developmentPolicy.attachToUser(developmentUser);
+      // apiBackendFn.grantPrincipal.addToPrincipalPolicy(
+      // );
+      (apiBackendFn.role! as Role).assumeRolePolicy?.addStatements(
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ['sts:AssumeRole'],
+          principals: [developmentUser.grantPrincipal],
+        }),
+      );
+    }
 
     // API Gateway for REST API
     const apiGateway = new RestApi(this, toCanonical('AwsVpcVisualizerApi'), {

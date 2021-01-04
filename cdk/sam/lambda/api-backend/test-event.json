@@ -1,0 +1,135 @@
+{
+    "resource": "/api/v1/security-groups",
+    "path": "/api/v1/security-groups",
+    "httpMethod": "GET",
+    "headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "US",
+        "dnt": "1",
+        "Host": "9f66xoa4vk.execute-api.us-east-1.amazonaws.com",
+        "Pragma": "no-cache",
+        "sec-gpc": "1",
+        "User-Agent": "Amazon CloudFront",
+        "Via": "2.0 3ab520e9829594afd161e678c0434f7b.cloudfront.net (CloudFront), 1.1 337ca2c1f0c98d8fc6d4b167878fe4c3.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "IbQqFZZYSD9hqsxJCbeYecu6kDmOw8eShvGKIm6elSS5VeBiKwiJpg==",
+        "X-Amzn-Trace-Id": "Root=1-5ff20546-3f2177fa6d1295df77c27fdf",
+        "X-Forwarded-For": "68.192.1.128, 70.132.21.82, 64.252.135.156",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "*/*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Cache-Control": [
+            "no-cache"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "US"
+        ],
+        "dnt": [
+            "1"
+        ],
+        "Host": [
+            "9f66xoa4vk.execute-api.us-east-1.amazonaws.com"
+        ],
+        "Pragma": [
+            "no-cache"
+        ],
+        "sec-gpc": [
+            "1"
+        ],
+        "User-Agent": [
+            "Amazon CloudFront"
+        ],
+        "Via": [
+            "2.0 3ab520e9829594afd161e678c0434f7b.cloudfront.net (CloudFront), 1.1 337ca2c1f0c98d8fc6d4b167878fe4c3.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "IbQqFZZYSD9hqsxJCbeYecu6kDmOw8eShvGKIm6elSS5VeBiKwiJpg=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5ff20546-3f2177fa6d1295df77c27fdf"
+        ],
+        "X-Forwarded-For": [
+            "68.192.1.128, 70.132.21.82, 64.252.135.156"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": {
+        "region": "us-east-1",
+        "roleArn": "arn:aws:iam::156522910806:role/AwsVpcVisualizerStack-Bet-DescribeVpcResourcesBeta-37Q2T8KB5HXO"
+    },
+    "multiValueQueryStringParameters": {
+        "region": [
+            "us-east-1"
+        ],
+        "roleArn": [
+            "arn:aws:iam::156522910806:role/AwsVpcVisualizerStack-Bet-DescribeVpcResourcesBeta-37Q2T8KB5HXO"
+        ]
+    },
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "ko4ahl",
+        "resourcePath": "/api/v1/security-groups",
+        "httpMethod": "GET",
+        "extendedRequestId": "YlXDCFTToAMFgSA=",
+        "requestTime": "03/Jan/2021:17:56:22 +0000",
+        "path": "/beta/api/v1/security-groups",
+        "accountId": "156522910806",
+        "protocol": "HTTP/1.1",
+        "stage": "beta",
+        "domainPrefix": "9f66xoa4vk",
+        "requestTimeEpoch": 1609696582569,
+        "requestId": "f88d4795-74dc-44ff-9742-8a99592dd138",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "70.132.21.82",
+            "principalOrgId": null,
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "Amazon CloudFront",
+            "user": null
+        },
+        "domainName": "9f66xoa4vk.execute-api.us-east-1.amazonaws.com",
+        "apiId": "9f66xoa4vk"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}
