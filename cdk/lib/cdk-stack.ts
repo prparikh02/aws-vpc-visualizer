@@ -91,8 +91,6 @@ export class AwsVpcVisualizerStack extends Stack {
         ]
       });
       developmentPolicy.attachToUser(developmentUser);
-      // apiBackendFn.grantPrincipal.addToPrincipalPolicy(
-      // );
       (apiBackendFn.role! as Role).assumeRolePolicy?.addStatements(
         new PolicyStatement({
           effect: Effect.ALLOW,

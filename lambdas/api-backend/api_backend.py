@@ -3,6 +3,9 @@ import uuid
 
 import boto3
 
+from app.security_groups import SecurityGroupProcessor
+from app.serde import GraphEncoder
+
 
 sts_client = boto3.client('sts')
 
@@ -10,7 +13,9 @@ sts_client = boto3.client('sts')
 def handler(event, context):
     print('request: {}'.format(json.dumps(event)))
 
-    data = {}
+    response_body = {}
+    # TODO: This should be a POST request instead of GET.
+    #       We don't want peoples' IAM roles logged in request logs.
     query_params = event['queryStringParameters']
     if query_params:
         print('Query Paramters: {}'.format(query_params))
@@ -23,12 +28,13 @@ def handler(event, context):
         # TODO: Check API response for errors
         security_groups = api_response['SecurityGroups']
         try:
-            validate_security_groups(security_groups)
-        except ValueError as e:
+            graph = SecurityGroupProcessor().get_graph(security_groups)
+            response_body = json.loads(json.dumps(graph, cls=GraphEncoder))
+        except Exception as e:
             print('Validation error: {}'.format(str(e)))
             return make_response(500, {'messages': [str(e)]})
 
-    return make_response(200, body=api_response)
+    return make_response(200, body=response_body)
 
 
 def make_response(status_code, body={}):
@@ -44,29 +50,6 @@ def make_response(status_code, body={}):
         'isBase64Encoded': False,
         'body': json.dumps(body, separators=(',', ':')),
     }
-
-
-def validate_security_groups(security_groups):
-    
-    def validate_rule(rule):
-        exclusive_fields = 0
-        if rule['IpRanges'] or rule['Ipv6Ranges']:
-            exclusive_fields += 1
-        if rule['UserIdGroupPairs']:
-            exclusive_fields += 1
-        if rule['PrefixListIds']:
-            exclusive_fields += 1
-
-            if exclusive_fields == 0:
-                raise ValueError('No mutually exclusive fields detected.')
-            if exclusive_fields > 1:
-                raise ValueError('More than two mutually exclusive fields detected.')
-
-    for security_group_info in security_groups:
-        for rule in security_group_info['IpPermissions']:
-            validate_rule(rule)
-        for rule in security_group_info['IpPermissionsEgress']:
-            validate_rule(rule)
 
 
 def create_client(service_name, role_arn, region):
