@@ -50,11 +50,12 @@ class Node(Dictable):
         # return {key: val for key, val in self._frozen_metadata}
 
     def to_dict(self):
+        # Use the @property attributes
         return {
-            'id': self.id(),
-            'type': self.type(),
-            'name': self.name(),
-            'metadata': self.metadata(),
+            'id': self.id,
+            'type': self.type,
+            'name': self.name,
+            'metadata': self.metadata,
         }
 
     def __str__(self):
@@ -94,11 +95,12 @@ class Edge(Dictable):
         return self._port_range
 
     def to_dict(self):
+        # Use the @property attributes
         return {
-            'source': self.source(),
-            'target': self.target(),
-            'protocol': self.protocol(),
-            'port_range': self.port_range(),
+            'source': self.source,
+            'target': self.target,
+            'protocol': self.protocol,
+            'port_range': self.port_range,
         }
 
     def __eq__(self, other):
@@ -143,7 +145,8 @@ class Graph(Dictable):
         return self._edges
 
     def to_dict(self):
+        # Use the @property attributes
         return {
-            'nodes': self.nodes(),
-            'edges': self.edges(),
+            'nodes': self.nodes,
+            'edges': self.edges,
         }

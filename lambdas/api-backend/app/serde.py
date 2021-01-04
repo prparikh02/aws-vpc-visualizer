@@ -16,7 +16,7 @@ class NodeTypeEncoder(json.JSONEncoder):
 class NodeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Node):
-            return obj.__dict__
+            return obj.to_dict()
         else:
             return super().default(obj)
 
@@ -33,7 +33,7 @@ class NodeDecoder(json.JSONDecoder):
             *args,
             **kwargs,
         )
-        self._required_keys = ('_id', '_type', '_name', '_metadata')
+        self._required_keys = ('id', 'type', 'name', 'metadata')
 
     @property
     def required_keys(self):
@@ -42,10 +42,10 @@ class NodeDecoder(json.JSONDecoder):
     def object_hook(self, dict_):
         if all([key in dict_ for key in self._required_keys]):
             return Node(
-                dict_['_id'],
-                NodeType(dict_['_type']),
-                dict_['_name'],
-                dict_['_metadata'],
+                dict_['id'],
+                NodeType(dict_['type']),
+                dict_['name'],
+                dict_['metadata'],
             )
         return dict_
 
@@ -53,7 +53,7 @@ class NodeDecoder(json.JSONDecoder):
 class EdgeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Edge):
-            return obj.__dict__
+            return obj.to_dict()
         else:
             return super().default(obj)
 
@@ -66,7 +66,7 @@ class EdgeDecoder(json.JSONDecoder):
             *args,
             **kwargs,
         )
-        self._required_keys = ('_source', '_target', '_protocol', '_port_range')
+        self._required_keys = ('source', 'target', 'protocol', 'port_range')
 
     @property
     def required_keys(self):
@@ -75,10 +75,10 @@ class EdgeDecoder(json.JSONDecoder):
     def object_hook(self, dict_):
         if all([key in dict_ for key in self._required_keys]):
             return Edge(
-                dict_['_source'],
-                dict_['_target'],
-                dict_['_protocol'],
-                tuple(dict_['_port_range']),
+                dict_['source'],
+                dict_['target'],
+                dict_['protocol'],
+                tuple(dict_['port_range']),
             )
         return dict_
 

@@ -18,7 +18,7 @@ def handler(event, context):
     #       We don't want peoples' IAM roles logged in request logs.
     query_params = event['queryStringParameters']
     if query_params:
-        print('Query Paramters: {}'.format(query_params))
+        print('Query Parameters: {}'.format(query_params))
         ec2_client = create_client(
             'ec2',
             query_params['roleArn'],

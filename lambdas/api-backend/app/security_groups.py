@@ -120,7 +120,7 @@ class SecurityGroupProcessor(object):
                 #       Otherwise, we have incomplete info.
                 #       Maybe we have to handle at merge time.
                 # Add node
-                nodes[security_group_id] = Node(
+                nodes[other_security_group_id] = Node(
                     other_security_group_id,
                     NodeType.SECURITY_GROUP,
                     'UNKNOWN',
