@@ -24,8 +24,7 @@ class SecurityGroupProcessor(object):
             # belong to this AWS account, in which we will always have
             # incomplete information.
             for node_id, node in nodes.items():
-                if (node_id not in all_nodes or
-                        all_nodes[node_id].name == 'UNKNOWN'):
+                if node_id not in all_nodes or all_nodes[node_id].name == 'UNKNOWN':
                     all_nodes[node_id] = node
 
         for security_group in security_groups:
@@ -79,22 +78,24 @@ class SecurityGroupProcessor(object):
             for rule in security_group_info['IpPermissionsEgress']:
                 validate_rule(rule)
 
-
     def _process_rule(self, rule, security_group_id, direction):
-        '''
+        """
         Direction w/r/t SecurityGroup.
-        
+
         There's a lot of clean up to do here.
-        '''
+        """
         nodes = {}
         edges = set()
         edge_kwargs = {
             'protocol': rule['IpProtocol'],
-            'port_range': tuple([
-                rule.get('FromPort', -1),
-                rule.get('ToPort', -1),
-            ]),
+            'port_range': tuple(
+                [
+                    rule.get('FromPort', -1),
+                    rule.get('ToPort', -1),
+                ]
+            ),
         }
+
         def add_edge(neighbor):
             if direction == EdgeDirection.OUT:
                 edges.add(Edge(security_group_id, neighbor, **edge_kwargs))

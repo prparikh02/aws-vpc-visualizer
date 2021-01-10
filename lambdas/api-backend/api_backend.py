@@ -72,4 +72,3 @@ def create_client(service_name, role_arn, region):
         aws_secret_access_key=secret_key,
         aws_session_token=session_token,
     )
-

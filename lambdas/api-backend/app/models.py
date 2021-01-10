@@ -6,10 +6,10 @@ from typing import Tuple
 
 
 class NodeType(Enum):
-    SECURITY_GROUP = 'SecurityGroup',
-    CIDR_IP = 'CidrIP',
-    CIDR_IPV6 = 'CidrIPv6',
-    PREFIX_LIST = 'PrefixList',
+    SECURITY_GROUP = ('SecurityGroup',)
+    CIDR_IP = ('CidrIP',)
+    CIDR_IPV6 = ('CidrIPv6',)
+    PREFIX_LIST = ('PrefixList',)
 
     @staticmethod
     def value_of(name) -> Enum:
@@ -19,8 +19,8 @@ class NodeType(Enum):
 
 
 class EdgeDirection(IntEnum):
-    IN = 0,
-    OUT = 1,
+    IN = (0,)
+    OUT = (1,)
 
 
 class Dictable(object):
@@ -118,21 +118,23 @@ class Edge(Dictable):
         if not isinstance(other, Edge):
             return False
         return (
-            self._source == other._source and
-            self._target == other._target and
-            self._protocol == other._protocol and
-            self._port_range == self._port_range
+            self._source == other._source
+            and self._target == other._target
+            and self._protocol == other._protocol
+            and self._port_range == self._port_range
         )
 
     def __hash__(self):
         # Is this really the best way to do this?
         # The intermediate tuple doubles memory.
-        return hash((
-            self._source,
-            self._target,
-            self._protocol,
-            self._port_range,
-        ))
+        return hash(
+            (
+                self._source,
+                self._target,
+                self._protocol,
+                self._port_range,
+            )
+        )
 
     def __str__(self):
         return str(vars(self))

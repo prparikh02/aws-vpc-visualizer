@@ -129,15 +129,9 @@ class GraphDecoder(json.JSONDecoder):
     def object_hook(self, dict_):
         if self._required_keys_present(dict_, self._required_keys):
             return self._object_hook(dict_)
-        elif self._required_keys_present(
-                dict_,
-                self._decoders['node'].required_keys,
-        ):
+        elif self._required_keys_present(dict_, self._decoders['node'].required_keys):
             return self._decoders['node'].object_hook(dict_)
-        elif self._required_keys_present(
-            dict_,
-            self._decoders['edge'].required_keys,
-        ):
+        elif self._required_keys_present(dict_, self._decoders['edge'].required_keys):
             return self._decoders['edge'].object_hook(dict_)
         return dict_
 
