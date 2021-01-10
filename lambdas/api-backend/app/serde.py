@@ -1,5 +1,6 @@
 import json
 
+from .models import Graph
 from .models import Edge
 from .models import Node
 from .models import NodeType
@@ -8,7 +9,7 @@ from .models import NodeType
 class NodeTypeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, NodeType):
-            return obj  # Enum value
+            return obj.name  # Enum "name"
         else:
             return super().default(obj)
 
@@ -43,7 +44,7 @@ class NodeDecoder(json.JSONDecoder):
         if all([key in dict_ for key in self._required_keys]):
             return Node(
                 dict_['id'],
-                NodeType(dict_['type']),
+                NodeType.value_of(dict_['type']),
                 dict_['name'],
                 dict_['metadata'],
             )
@@ -93,12 +94,20 @@ class GraphEncoder(json.JSONEncoder):
         }
 
     def default(self, obj):
-        if isinstance(obj, Node):
+        if isinstance(obj, Graph):
+            return self._default(obj)
+        elif isinstance(obj, Node):
             return self._encoders['node'].default(obj)
         elif isinstance(obj, NodeType):
             return self._encoders['node_type'].default(obj)
         elif isinstance(obj, Edge):
             return self._encoders['edge'].default(obj)
+        else:
+            return super().default(obj)
+
+    def _default(self, obj):
+        if isinstance(obj, Graph):
+            return obj.to_dict()
         else:
             return super().default(obj)
 
@@ -115,9 +124,12 @@ class GraphDecoder(json.JSONDecoder):
             'node': NodeDecoder(),
             'edge': EdgeDecoder(),
         }
+        self._required_keys = ('nodes', 'edges')
 
     def object_hook(self, dict_):
-        if self._required_keys_present(
+        if self._required_keys_present(dict_, self._required_keys):
+            return self._object_hook(dict_)
+        elif self._required_keys_present(
                 dict_,
                 self._decoders['node'].required_keys,
         ):
@@ -128,6 +140,11 @@ class GraphDecoder(json.JSONDecoder):
         ):
             return self._decoders['edge'].object_hook(dict_)
         return dict_
-    
+
+    def _object_hook(self, dict_):
+        if all([key in dict_ for key in self._required_keys]):
+            return Graph(dict_['nodes'], dict_['edges'])
+        return dict_
+
     def _required_keys_present(self, dict_, keys):
         return all([key in dict_ for key in keys])

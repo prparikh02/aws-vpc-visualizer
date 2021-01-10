@@ -1,12 +1,21 @@
+from enum import Enum
 from enum import IntEnum
-from typing import Dict, Tuple
+from typing import Dict
+from typing import List
+from typing import Tuple
 
 
-class NodeType(IntEnum):
-    SECURITY_GROUP = 0,
-    CIDR_IP = 1,
-    CIDR_IPV6 = 2,
-    PREFIX_LIST = 3,
+class NodeType(Enum):
+    SECURITY_GROUP = 'SecurityGroup',
+    CIDR_IP = 'CidrIP',
+    CIDR_IPV6 = 'CidrIPv6',
+    PREFIX_LIST = 'PrefixList',
+
+    @staticmethod
+    def value_of(name) -> Enum:
+        for canonical, value in NodeType.__members__.items():
+            if canonical == name.upper():
+                return value
 
 
 class EdgeDirection(IntEnum):
@@ -50,7 +59,7 @@ class Node(Dictable):
         # return {key: val for key, val in self._frozen_metadata}
 
     def to_dict(self):
-        # Use the @property attributes
+        # Uses the @property attributes
         return {
             'id': self.id,
             'type': self.type,
@@ -95,7 +104,7 @@ class Edge(Dictable):
         return self._port_range
 
     def to_dict(self):
-        # Use the @property attributes
+        # Uses the @property attributes
         return {
             'source': self.source,
             'target': self.target,
@@ -116,7 +125,8 @@ class Edge(Dictable):
         )
 
     def __hash__(self):
-        # Is this really the best way to do this? It doubles memory.
+        # Is this really the best way to do this?
+        # The intermediate tuple doubles memory.
         return hash((
             self._source,
             self._target,
@@ -132,7 +142,7 @@ class Edge(Dictable):
 
 
 class Graph(Dictable):
-    def __init__(self, nodes, edges):
+    def __init__(self, nodes: Dict[str, Node], edges: List[Edge]):
         self._nodes = nodes
         self._edges = edges
 
@@ -145,7 +155,7 @@ class Graph(Dictable):
         return self._edges
 
     def to_dict(self):
-        # Use the @property attributes
+        # Uses the @property attributes
         return {
             'nodes': self.nodes,
             'edges': self.edges,

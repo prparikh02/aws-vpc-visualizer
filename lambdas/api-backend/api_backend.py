@@ -31,8 +31,11 @@ def handler(event, context):
             graph = SecurityGroupProcessor().get_graph(security_groups)
             response_body = json.loads(json.dumps(graph, cls=GraphEncoder))
         except Exception as e:
-            print('Validation error: {}'.format(str(e)))
-            return make_response(500, {'messages': [str(e)]})
+            print('Backend data validation error: {}'.format(str(e)))
+            return make_response(
+                500,
+                {'messages': ['Encountered internal processor error.']},
+            )
 
     return make_response(200, body=response_body)
 
