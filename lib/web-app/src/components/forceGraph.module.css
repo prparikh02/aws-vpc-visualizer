@@ -6,7 +6,7 @@
   width: 80vw;
   height: 80vh;
   position: relative;
-  background-color: white;
+  background-color: #ffe2c6;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
 }
 
@@ -16,12 +16,21 @@
   height: 100%;
 }
 
-.male {
-  fill: rgb(22, 130, 218);
+.nodeSecurityGroup {
+  fill: rgb(255, 255, 255);
 }
 
-.female {
-  fill: rgb(246, 0, 0);
+.nodeCidrIp {
+  fill: rgb(255, 255, 255);
+  font: 8px;
+}
+
+.nodePrefixList {
+  fill: rgb(0, 0, 0);
+}
+
+.nodeUnknown {
+  fill: rgb(255, 255, 255);
 }
 
 .node text {
