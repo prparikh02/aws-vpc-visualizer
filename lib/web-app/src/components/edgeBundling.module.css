@@ -1,0 +1,59 @@
+/*
+  Credit: https://blog.rowanudell.com/visualising-ec2-security-groups/
+*/
+
+.container {
+  width: 80vw;
+  height: 80vh;
+  position: relative;
+}
+
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+}
+
+.nodeCircle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1px;
+}
+
+.nodeHover {
+  fill: #000;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: .4;
+  fill: none;
+  pointer-events: none;
+}
+
+.nodeHover,
+.nodeSource,
+.nodeTarget {
+  font-weight: 700;
+}
+
+.nodeSource {
+  fill: #2ca02c;
+}
+
+.nodeTarget {
+  fill: #d62728;
+}
+
+.linkSource,
+.linkTarget {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.linkSource {
+  stroke: #d62728;
+}
+
+.linkTarget {
+  stroke: #2ca02c;
+}
