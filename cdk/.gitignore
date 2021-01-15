@@ -11,6 +11,6 @@ cdk.out
 .parcel-cache
 
 # SAM artifacts
-./template.yaml
+template.yaml
 sam/
 .aws-sam/
