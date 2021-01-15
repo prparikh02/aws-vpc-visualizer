@@ -1,135 +1,107 @@
 {
-    "resource": "/api/v1/security-groups",
-    "path": "/api/v1/security-groups",
-    "httpMethod": "GET",
+    "body": "{\"roleArn\": \"arn:aws:iam::156522910806:role/AwsVpcVisualizerStack-Bet-DescribeVpcResourcesBeta-37Q2T8KB5HXO\", \"region\": \"us-east-1\"}",
     "headers": {
         "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en-US",
         "Cache-Control": "no-cache",
-        "CloudFront-Forwarded-Proto": "https",
-        "CloudFront-Is-Desktop-Viewer": "true",
-        "CloudFront-Is-Mobile-Viewer": "false",
-        "CloudFront-Is-SmartTV-Viewer": "false",
-        "CloudFront-Is-Tablet-Viewer": "false",
-        "CloudFront-Viewer-Country": "US",
-        "dnt": "1",
-        "Host": "9f66xoa4vk.execute-api.us-east-1.amazonaws.com",
+        "Connection": "keep-alive",
+        "Content-Length": "40",
+        "Content-Type": "application/json",
+        "Dnt": "1",
+        "Host": "localhost:3001",
+        "Origin": "http://localhost:3000",
         "Pragma": "no-cache",
-        "sec-gpc": "1",
-        "User-Agent": "Amazon CloudFront",
-        "Via": "2.0 3ab520e9829594afd161e678c0434f7b.cloudfront.net (CloudFront), 1.1 337ca2c1f0c98d8fc6d4b167878fe4c3.cloudfront.net (CloudFront)",
-        "X-Amz-Cf-Id": "IbQqFZZYSD9hqsxJCbeYecu6kDmOw8eShvGKIm6elSS5VeBiKwiJpg==",
-        "X-Amzn-Trace-Id": "Root=1-5ff20546-3f2177fa6d1295df77c27fdf",
-        "X-Forwarded-For": "68.192.1.128, 70.132.21.82, 64.252.135.156",
-        "X-Forwarded-Port": "443",
-        "X-Forwarded-Proto": "https"
+        "Referer": "http://localhost:3000/",
+        "Sec-Gpc": "1",
+        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0",
+        "X-Forwarded-Port": "3001",
+        "X-Forwarded-Proto": "http"
     },
+    "httpMethod": "POST",
+    "isBase64Encoded": false,
     "multiValueHeaders": {
         "Accept": [
             "*/*"
         ],
         "Accept-Encoding": [
-            "gzip, deflate, br"
+            "gzip, deflate"
+        ],
+        "Accept-Language": [
+            "en-US"
         ],
         "Cache-Control": [
             "no-cache"
         ],
-        "CloudFront-Forwarded-Proto": [
-            "https"
+        "Connection": [
+            "keep-alive"
         ],
-        "CloudFront-Is-Desktop-Viewer": [
-            "true"
+        "Content-Length": [
+            "40"
         ],
-        "CloudFront-Is-Mobile-Viewer": [
-            "false"
+        "Content-Type": [
+            "application/json"
         ],
-        "CloudFront-Is-SmartTV-Viewer": [
-            "false"
-        ],
-        "CloudFront-Is-Tablet-Viewer": [
-            "false"
-        ],
-        "CloudFront-Viewer-Country": [
-            "US"
-        ],
-        "dnt": [
+        "Dnt": [
             "1"
         ],
         "Host": [
-            "9f66xoa4vk.execute-api.us-east-1.amazonaws.com"
+            "localhost:3001"
+        ],
+        "Origin": [
+            "http://localhost:3000"
         ],
         "Pragma": [
             "no-cache"
         ],
-        "sec-gpc": [
+        "Referer": [
+            "http://localhost:3000/"
+        ],
+        "Sec-Gpc": [
             "1"
         ],
         "User-Agent": [
-            "Amazon CloudFront"
-        ],
-        "Via": [
-            "2.0 3ab520e9829594afd161e678c0434f7b.cloudfront.net (CloudFront), 1.1 337ca2c1f0c98d8fc6d4b167878fe4c3.cloudfront.net (CloudFront)"
-        ],
-        "X-Amz-Cf-Id": [
-            "IbQqFZZYSD9hqsxJCbeYecu6kDmOw8eShvGKIm6elSS5VeBiKwiJpg=="
-        ],
-        "X-Amzn-Trace-Id": [
-            "Root=1-5ff20546-3f2177fa6d1295df77c27fdf"
-        ],
-        "X-Forwarded-For": [
-            "68.192.1.128, 70.132.21.82, 64.252.135.156"
+            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0"
         ],
         "X-Forwarded-Port": [
-            "443"
+            "3001"
         ],
         "X-Forwarded-Proto": [
-            "https"
+            "http"
         ]
     },
-    "queryStringParameters": {
-        "region": "us-east-1",
-        "roleArn": "arn:aws:iam::156522910806:role/AwsVpcVisualizerStack-Bet-DescribeVpcResourcesBeta-37Q2T8KB5HXO"
-    },
-    "multiValueQueryStringParameters": {
-        "region": [
-            "us-east-1"
-        ],
-        "roleArn": [
-            "arn:aws:iam::156522910806:role/AwsVpcVisualizerStack-Bet-DescribeVpcResourcesBeta-37Q2T8KB5HXO"
-        ]
-    },
+    "multiValueQueryStringParameters": null,
+    "path": "/api/v1/security-groups",
     "pathParameters": null,
-    "stageVariables": null,
+    "queryStringParameters": null,
     "requestContext": {
-        "resourceId": "ko4ahl",
-        "resourcePath": "/api/v1/security-groups",
-        "httpMethod": "GET",
-        "extendedRequestId": "YlXDCFTToAMFgSA=",
-        "requestTime": "03/Jan/2021:17:56:22 +0000",
-        "path": "/beta/api/v1/security-groups",
-        "accountId": "156522910806",
-        "protocol": "HTTP/1.1",
-        "stage": "beta",
-        "domainPrefix": "9f66xoa4vk",
-        "requestTimeEpoch": 1609696582569,
-        "requestId": "f88d4795-74dc-44ff-9742-8a99592dd138",
+        "accountId": "123456789012",
+        "apiId": "1234567890",
+        "domainName": "localhost:3001",
+        "extendedRequestId": null,
+        "httpMethod": "POST",
         "identity": {
-            "cognitoIdentityPoolId": null,
             "accountId": null,
-            "cognitoIdentityId": null,
+            "apiKey": null,
             "caller": null,
-            "sourceIp": "70.132.21.82",
-            "principalOrgId": null,
-            "accessKey": null,
-            "cognitoAuthenticationType": null,
             "cognitoAuthenticationProvider": null,
-            "userArn": null,
-            "userAgent": "Amazon CloudFront",
-            "user": null
+            "cognitoAuthenticationType": null,
+            "cognitoIdentityPoolId": null,
+            "sourceIp": "127.0.0.1",
+            "user": null,
+            "userAgent": "Custom User Agent String",
+            "userArn": null
         },
-        "domainName": "9f66xoa4vk.execute-api.us-east-1.amazonaws.com",
-        "apiId": "9f66xoa4vk"
+        "path": "/api/v1/security-groups",
+        "protocol": "HTTP/1.1",
+        "requestId": "623c9c6b-49d4-435c-ad31-4f2464d51470",
+        "requestTime": "15/Jan/2021:19:49:28 +0000",
+        "requestTimeEpoch": 1610740168,
+        "resourceId": "123456",
+        "resourcePath": "/api/v1/security-groups",
+        "stage": "beta"
     },
-    "body": null,
-    "isBase64Encoded": false
+    "resource": "/api/v1/security-groups",
+    "stageVariables": null,
+    "version": "1.0"
 }

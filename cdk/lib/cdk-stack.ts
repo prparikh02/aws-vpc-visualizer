@@ -110,13 +110,18 @@ export class AwsVpcVisualizerStack extends Stack {
     const apiResource = apiGateway.root.addResource('api');
     const v1Api = apiResource.addResource('v1');
     const v1ApiSecurityGroups = v1Api.addResource('security-groups');
-    // TODO: Maybe use POST to hide the request parameters in body
     v1ApiSecurityGroups.addMethod('GET', new LambdaIntegration(apiBackendFn));
+    v1ApiSecurityGroups.addMethod('POST', new LambdaIntegration(apiBackendFn));
 
     // If development environment, allow CORS from localhost
-    // TODO: Remove this when using SAM. This is insecure.
     if (dev) {
-      apiResource.addCorsPreflight({
+      // Despite my efforts, the CORS preflight config below does not want to
+      // work in SAM local without something backing the OPTIONS method. I can
+      // add the below instead:
+      //   v1ApiSecurityGroups.addMethod('OPTIONS', new LambdaIntegration(apiBackendFn));
+      // but then I'd have to implement a special OPTIONS handler in Lambda.
+      // Wish there was a better way.
+      v1ApiSecurityGroups.addCorsPreflight({
         allowHeaders: Cors.DEFAULT_HEADERS,
         allowMethods: Cors.ALL_METHODS,
         allowOrigins: [

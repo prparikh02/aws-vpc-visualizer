@@ -46,7 +46,7 @@ Resources:
     Properties:
       Code:
         S3Bucket:
-          Ref: AssetParameterse21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443S3Bucket94376005
+          Ref: AssetParameterse0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5S3Bucket1CCBAFBB
         S3Key:
           Fn::Join:
             - ""
@@ -54,12 +54,12 @@ Resources:
                   - 0
                   - Fn::Split:
                       - "||"
-                      - Ref: AssetParameterse21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443S3VersionKey6EA8820D
+                      - Ref: AssetParameterse0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5S3VersionKey468B22AA
               - Fn::Select:
                   - 1
                   - Fn::Split:
                       - "||"
-                      - Ref: AssetParameterse21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443S3VersionKey6EA8820D
+                      - Ref: AssetParameterse0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5S3VersionKey468B22AA
       Handler: api_backend.handler
       Role:
         Fn::GetAtt:
@@ -174,7 +174,7 @@ Resources:
       - AwsVpcVisualizerApiBeta4EADF73F
     Metadata:
       aws:cdk:path: AwsVpcVisualizerStack-Beta-v100/AwsVpcVisualizerApi-Beta/Account
-  AwsVpcVisualizerApiBetaDeployment84778D0Ed41253a714b1f10f7be70657f2e18d96:
+  AwsVpcVisualizerApiBetaDeployment84778D0Ee7560a4cbcf5c7953f51b438c6b11993:
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId:
@@ -195,7 +195,7 @@ Resources:
       RestApiId:
         Ref: AwsVpcVisualizerApiBeta4EADF73F
       DeploymentId:
-        Ref: AwsVpcVisualizerApiBetaDeployment84778D0Ed41253a714b1f10f7be70657f2e18d96
+        Ref: AwsVpcVisualizerApiBetaDeployment84778D0Ee7560a4cbcf5c7953f51b438c6b11993
       MethodSettings:
         - HttpMethod: "*"
           LoggingLevel: INFO
@@ -374,50 +374,6 @@ Resources:
               - /invocations
     Metadata:
       aws:cdk:path: AwsVpcVisualizerStack-Beta-v100/AwsVpcVisualizerApi-Beta/Default/api/v1/security-groups/POST/Resource
-  AwsVpcVisualizerApiBetaapiv1securitygroupsOPTIONSApiPermissionAwsVpcVisualizerStackBetav100AwsVpcVisualizerApiBeta66F695A7OPTIONSapiv1securitygroups2DD9B04D:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::GetAtt:
-          - ApiBackendBetaED77F8D7
-          - Arn
-      Principal: apigateway.amazonaws.com
-      SourceArn:
-        Fn::Join:
-          - ""
-          - - "arn:"
-            - Ref: AWS::Partition
-            - ":execute-api:us-east-1:"
-            - Ref: AWS::AccountId
-            - ":"
-            - Ref: AwsVpcVisualizerApiBeta4EADF73F
-            - /
-            - Ref: AwsVpcVisualizerApiBetaDeploymentStagebetaC04253B2
-            - /OPTIONS/api/v1/security-groups
-    Metadata:
-      aws:cdk:path: AwsVpcVisualizerStack-Beta-v100/AwsVpcVisualizerApi-Beta/Default/api/v1/security-groups/OPTIONS/ApiPermission.AwsVpcVisualizerStackBetav100AwsVpcVisualizerApiBeta66F695A7.OPTIONS..api.v1.security-groups
-  AwsVpcVisualizerApiBetaapiv1securitygroupsOPTIONSApiPermissionTestAwsVpcVisualizerStackBetav100AwsVpcVisualizerApiBeta66F695A7OPTIONSapiv1securitygroups30B4F0C8:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: lambda:InvokeFunction
-      FunctionName:
-        Fn::GetAtt:
-          - ApiBackendBetaED77F8D7
-          - Arn
-      Principal: apigateway.amazonaws.com
-      SourceArn:
-        Fn::Join:
-          - ""
-          - - "arn:"
-            - Ref: AWS::Partition
-            - ":execute-api:us-east-1:"
-            - Ref: AWS::AccountId
-            - ":"
-            - Ref: AwsVpcVisualizerApiBeta4EADF73F
-            - /test-invoke-stage/OPTIONS/api/v1/security-groups
-    Metadata:
-      aws:cdk:path: AwsVpcVisualizerStack-Beta-v100/AwsVpcVisualizerApi-Beta/Default/api/v1/security-groups/OPTIONS/ApiPermission.Test.AwsVpcVisualizerStackBetav100AwsVpcVisualizerApiBeta66F695A7.OPTIONS..api.v1.security-groups
   AwsVpcVisualizerApiBetaapiv1securitygroupsOPTIONSBD44C89A:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -428,18 +384,21 @@ Resources:
         Ref: AwsVpcVisualizerApiBeta4EADF73F
       AuthorizationType: NONE
       Integration:
-        IntegrationHttpMethod: POST
-        Type: AWS_PROXY
-        Uri:
-          Fn::Join:
-            - ""
-            - - "arn:"
-              - Ref: AWS::Partition
-              - :apigateway:us-east-1:lambda:path/2015-03-31/functions/
-              - Fn::GetAtt:
-                  - ApiBackendBetaED77F8D7
-                  - Arn
-              - /invocations
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+          StatusCode: "204"
     Metadata:
       aws:cdk:path: AwsVpcVisualizerStack-Beta-v100/AwsVpcVisualizerApi-Beta/Default/api/v1/security-groups/OPTIONS/Resource
   WebAssetsBeta5243CAF2:
@@ -746,15 +705,15 @@ Resources:
     Metadata:
       aws:cdk:path: AwsVpcVisualizerStack-Beta-v100/CDKMetadata/Default
 Parameters:
-  AssetParameterse21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443S3Bucket94376005:
+  AssetParameterse0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5S3Bucket1CCBAFBB:
     Type: String
-    Description: S3 bucket for asset "e21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443"
-  AssetParameterse21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443S3VersionKey6EA8820D:
+    Description: S3 bucket for asset "e0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5"
+  AssetParameterse0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5S3VersionKey468B22AA:
     Type: String
-    Description: S3 key for asset version "e21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443"
-  AssetParameterse21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443ArtifactHash0AA578A6:
+    Description: S3 key for asset version "e0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5"
+  AssetParameterse0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5ArtifactHashB5FA86C6:
     Type: String
-    Description: Artifact hash for asset "e21888df2e5578b76ac273b9eea63c489853addf144755994d0eb50cbb692443"
+    Description: Artifact hash for asset "e0d6217bdbc59d00f5723ae2e0a25b905d339e4ee08ac92a47ca465ed27708a5"
   AssetParametersc9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176S3Bucket77147E20:
     Type: String
     Description: S3 bucket for asset "c9ac4b3b65f3510a2088b7fd003de23d2aefac424025eb168725ce6769e3c176"

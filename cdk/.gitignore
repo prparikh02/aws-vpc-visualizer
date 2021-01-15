@@ -12,3 +12,5 @@ cdk.out
 
 # SAM artifacts
 ./template.yaml
+sam/
+.aws-sam/
