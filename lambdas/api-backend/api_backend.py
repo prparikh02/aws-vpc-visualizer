@@ -14,28 +14,27 @@ def handler(event, context):
     print('request: {}'.format(json.dumps(event)))
 
     response_body = {}
-    # TODO: This should be a POST request instead of GET.
-    #       We don't want peoples' IAM roles logged in request logs.
-    query_params = event['queryStringParameters']
-    if query_params:
-        print('Query Parameters: {}'.format(query_params))
-        ec2_client = create_client(
-            'ec2',
-            query_params['roleArn'],
-            query_params['region'],
+    if event['httpMethod'] != 'POST':
+        return make_response(405)
+    request_body = json.loads(event['body'])
+    print('Request body: {}'.format(request_body))
+    ec2_client = create_client(
+        'ec2',
+        request_body['roleArn'],
+        request_body['region'],
+    )
+    api_response = ec2_client.describe_security_groups()
+    # TODO: Check API response for errors
+    security_groups = api_response['SecurityGroups']
+    try:
+        graph = SecurityGroupProcessor().get_graph(security_groups)
+        response_body = json.loads(json.dumps(graph, cls=GraphEncoder))
+    except Exception as e:
+        print('Backend data validation error: {}'.format(str(e)))
+        return make_response(
+            500,
+            {'messages': ['Encountered internal processor error.']},
         )
-        api_response = ec2_client.describe_security_groups()
-        # TODO: Check API response for errors
-        security_groups = api_response['SecurityGroups']
-        try:
-            graph = SecurityGroupProcessor().get_graph(security_groups)
-            response_body = json.loads(json.dumps(graph, cls=GraphEncoder))
-        except Exception as e:
-            print('Backend data validation error: {}'.format(str(e)))
-            return make_response(
-                500,
-                {'messages': ['Encountered internal processor error.']},
-            )
 
     return make_response(200, body=response_body)
 
