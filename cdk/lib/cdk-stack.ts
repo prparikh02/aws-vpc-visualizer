@@ -15,6 +15,7 @@ import {
   CloudFrontAllowedMethods,
   CloudFrontWebDistribution,
   Distribution,
+  OriginAccessIdentity,
   OriginProtocolPolicy,
   OriginRequestPolicy,
   ViewerCertificate,
@@ -30,7 +31,7 @@ import {
   User
 }  from '@aws-cdk/aws-iam';
 import { Code, Function, Runtime }  from '@aws-cdk/aws-lambda';
-import { Bucket } from '@aws-cdk/aws-s3';
+import { BlockPublicAccess, Bucket } from '@aws-cdk/aws-s3';
 import { BucketDeployment, Source } from '@aws-cdk/aws-s3-deployment';
 
 export class AwsVpcVisualizerStack extends Stack {
@@ -137,7 +138,7 @@ export class AwsVpcVisualizerStack extends Stack {
     // S3 Bucket for serving static assets
     const webAssetsBucket = new Bucket(this, toCanonical('WebAssets'), {
       websiteIndexDocument: 'index.html',
-      publicReadAccess: true,
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
     });
     webAssetsBucket.addToResourcePolicy(new PolicyStatement({
       effect: Effect.DENY,
@@ -204,11 +205,16 @@ export class AwsVpcVisualizerStack extends Stack {
     //   domainNames: ['vpc-visualizer.parthrparikh.com'],
     //   enableLogging: true,
     // });
+    const oai = new OriginAccessIdentity(this, toCanonical('OriginAccessIdentity'), {
+      comment: `Stack={${id}}. OAI to reach S3 bucket.`,
+    });
+    webAssetsBucket.grantRead(oai);
     const cfDistro = new CloudFrontWebDistribution(this, toCanonical('WebDistribution'), {
       originConfigs: [
         {
           s3OriginSource: {
             s3BucketSource: webAssetsBucket,
+            originAccessIdentity: oai,
           },
           behaviors: [
             {
