@@ -143,7 +143,10 @@ export class AwsVpcVisualizerStack extends Stack {
     webAssetsBucket.addToResourcePolicy(new PolicyStatement({
       effect: Effect.DENY,
       actions: ['s3:*'],
-      resources: [webAssetsBucket.bucketArn],
+      resources: [
+        webAssetsBucket.bucketArn,
+        webAssetsBucket.arnForObjects('*'),
+      ],
       conditions: {
         'Bool': {
           'aws:SecureTransport': false,
