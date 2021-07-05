@@ -1,0 +1,36 @@
+TODO:
+- [IMPORTANT] Resolve node merge strategy (backend)
+- Color scheme for node types, edge types
+  - Outline color for VPC id
+- Highlight edges when node is selected
+- Node sizes based on degree
+
+Schema parser:
+- Edge type is determined by:
+  - IpPermissions is inbound edge
+  - IpPermissionsEgress is outbound edge
+- Nodes
+  - IpRanges[].CidrIp will contain CidrIp node types
+  - Ipv6Ranges[].CidrIpv6 will contain CidrIpv6 node types
+  - PrefixListIds will contain PrefixLists node types
+    - Don't support until I know the schema
+  - UserIdGroupPairs.GroupId will contain 
+
+Node types:
+- CidrIp
+- CidrIpv6
+- PrefixList (will not be supported just yet)
+- SecurityGroup
+
+Validation constraints:
+- Mutual exclusions:
+  - IpRanges or Ipv6Ranges
+  - UserIdGroupPairs
+  - PrefixListIds
+
+Not included:
+- FromPort to ToPort (IP Range)
+- IpProtocol
+
+cdk synth AwsVpcVisualizerStack-Beta-v100 --no-staging > template.yaml
+sam local invoke ApiBackendBetaED77F8D7 --env-vars sam/lambda/api-backend/environment.json --event sam/lambda/api-backend/test-event.json --profile aws-vpc-visualizer-api-backend-role
